@@ -1,18 +1,31 @@
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import ListUser from './conponents/ListUser';
 function App() {
-  const listUsers = useSelector((state) => state.users);
-  const dispatch = useDispatch();
-  console.log(listUsers);
+  const [listAcc, setListAcc] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://611c56aea18e850017deca5d.mockapi.io/accounts`).then((response) => response.json())
+      .then((data) => {
+        setListAcc(data)
+        console.log(data);;
+      })
+      .catch((error) => console.error(error));
+  }, [])
+  // fetch(`https://611c56aea18e850017deca5d.mockapi.io/accounts`).then((response) => response.json())
+  //   .then((data) => {
+  //     setListAcc(data)
+  //     console.log(data);;
+  //   })
+  //   .catch((error) => console.error(error));
+
+  console.log('hello', listAcc.id);
   return (
-    <div className="App">
-      {listUsers.map(user =>
-        <div>
-          <h2>{user.id}</h2>
-          <h2>{user.card}</h2></div>
-      )}
-    </div>
+    <>
+      <ListUser users={listAcc} />
+    </>
   );
 }
 

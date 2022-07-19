@@ -6,6 +6,7 @@ import Surplus from "./conponents/Surplus";
 import Transfer from "./conponents/Transfer";
 import User from "./conponents/User";
 import Menu from "./Menu"
+import App from "./App";
 
 function Layout() {
     return (
@@ -13,6 +14,7 @@ function Layout() {
 
             <Header />
             <Routes>
+                <Route path="account" element={<App />} />
                 {/* <Route path="/account/:id" element={<User />}> */}
                 <Route index element={<Menu />} />
                 <Route path="withdrawal" element={<Withdrawal />} />
