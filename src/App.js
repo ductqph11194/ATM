@@ -10,18 +10,12 @@ function App() {
     fetch(`https://611c56aea18e850017deca5d.mockapi.io/accounts`).then((response) => response.json())
       .then((data) => {
         setListAcc(data)
-        console.log(data);;
+          ;;
       })
       .catch((error) => console.error(error));
   }, [])
-  // fetch(`https://611c56aea18e850017deca5d.mockapi.io/accounts`).then((response) => response.json())
-  //   .then((data) => {
-  //     setListAcc(data)
-  //     console.log(data);;
-  //   })
-  //   .catch((error) => console.error(error));
 
-  console.log('hello', listAcc.id);
+  console.log('hello', listAcc.accountName);
   return (
     <>
       <ListUser users={listAcc} />
