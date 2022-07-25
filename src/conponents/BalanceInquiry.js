@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { TitleText } from '../context/MainContext';
 
-function Surplus() {
+function BalanceInquiry() {
     const { setTitle } = useContext(TitleText);
     useEffect(() => {
         setTitle("SURPLUS");
@@ -11,4 +11,4 @@ function Surplus() {
     )
 }
 
-export default Surplus
+export default BalanceInquiry

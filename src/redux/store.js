@@ -6,3 +6,11 @@ const composedEnhancers = composeWithDevTools();
 const store = createStore(rootReducer, composedEnhancers)
 
 export default store;
+
+// import { confiugreStore } from '@reduxjs/toolkit';
+
+// const store = confiugreStore({
+//     reducer: {
+
+//     }
+// })

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux"
-import { TitleText } from './context/MainContext'
+import { TitleText } from '../context/MainContext'
 
 function Header() {
     const { title } = useContext(TitleText);

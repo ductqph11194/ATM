@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from './Layout';
+import Layout from './layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +16,6 @@ root.render(
         <Route path="*" element={<Layout />} />
       </Routes>
     </BrowserRouter>
-    <App />
   </Provider>
 );
 
