@@ -11,12 +11,12 @@ const AddAccount = ({ onAdd, categories }) => {
         uploads.append("balance", data.balance);
         uploads.append("accountNumber", data.accountNumber);
         uploads.append("pin", data.pin);
-        onAdd(uploads, data)
+        onAdd(data)
+        console.log(data);
     }
     return (
         <div>
             <div className="d-flex justify-content-between items-center">
-                <h1>Add Account</h1>
                 <div className="mt-3">
                     <button onClick={() => navigate(-1)} className="btn btn-primary">Quay lại</button>
                 </div>
@@ -51,11 +51,11 @@ const AddAccount = ({ onAdd, categories }) => {
                 <div className="form-floating mb-3">
                     <input type="text"
                         className="form-control"
-                        id="accountName"
+                        id="accountNumber"
                         placeholder="Acc Name"
-                        {...register('accountName', { required: true })}
+                        {...register('accountNumber', { required: true })}
                     />
-                    <label htmlFor="phone">Account Name</label>
+                    <label htmlFor="phone">Account Number</label>
                 </div>
                 <div className="form-floating mb-3">
                     <input type="text"
