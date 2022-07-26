@@ -10,8 +10,17 @@ import App from "../App";
 import MainContextProvider from "../context/MainContext";
 import { axiosClient } from '../axiosClient';
 import Account from "../conponents/Account";
+import { useDispatch, useSelector } from "react-redux";
+import { getListUser, getUsers } from "../redux/reducer"
 
 function Layout() {
+    const dispatch = useDispatch();
+    const userList = useSelector(getUsers);
+
+    useEffect(() => {
+        dispatch(getListUser());
+    }, []);
+    console.log(userList);
 
     const [listAcc, setListAcc] = useState([]);
 
@@ -26,6 +35,7 @@ function Layout() {
         },
 
     }
+
     useEffect(() => {
         const getAcc = async () => {
             try {
@@ -39,6 +49,7 @@ function Layout() {
         }
         getAcc();
     }, [])
+
     const addAccount = async (acc, data) => {
         try {
             const { data } = await AccApi.add(acc);
@@ -58,11 +69,12 @@ function Layout() {
             <MainContextProvider>
                 <Header />
                 <Routes>
-                    <Route path="account" element={<Account users={listAcc} />} />
+                    <Route path="account" element={<Account users={userList} />} />
                     <Route path="/account/:id" element={<User users={listAcc} />} />
                     <Route path="/addAccount" element={<AddAccount onAdd={addAccount} />} />
                     <Route path="/account/:id/withdrawal" element={<Withdrawal />} />
                     <Route path="/account/:id/balance-inquiry" element={<BalanceInquiry />} />
+                    <Route path="/account/:id/withdrawal" element={<Withdrawal />} />
                     <Route path="/account/:id/transfer" element={<Transfer />} />
 
                     <Route path="/" element={<Navigate to="/account" />} />
