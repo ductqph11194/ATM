@@ -16,6 +16,12 @@ function Account({ users }) {
             <div>
                 <Link to="/addAccount" className="btn btn-primary">Add Account</Link>
             </div>
+            <div className="col">
+                <input
+                    type="button"
+                    value={'50000'}
+                />
+            </div>
             <table className="table table-striped table-sm">
                 <thead>
                     <tr>

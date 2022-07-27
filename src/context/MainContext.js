@@ -4,10 +4,13 @@ export const TitleText = createContext();
 
 const MainContextProvider = ({ children }) => {
     const [title, setTitle] = useState("");
+    const [updateText, setUpdateText] = useState("");
 
     const TitleData = {
         setTitle,
         title,
+        updateText,
+        setUpdateText,
     };
 
     return (
