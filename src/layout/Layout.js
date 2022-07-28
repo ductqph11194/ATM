@@ -36,19 +36,6 @@ function Layout() {
 
     }
 
-    useEffect(() => {
-        const getAcc = async () => {
-            try {
-                const { data } = await AccApi.getAll();
-                setListAcc(data);
-
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
-        getAcc();
-    }, [])
 
     const addAccount = async (acc, data) => {
         try {

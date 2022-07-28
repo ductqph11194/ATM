@@ -7,7 +7,6 @@ function Account({ users }) {
         setTitle("LIST USERS");
     }, []);
 
-    console.log(TitleText);
     return (
         <>
             <div className="App">
@@ -15,12 +14,6 @@ function Account({ users }) {
             </div>
             <div>
                 <Link to="/addAccount" className="btn btn-primary">Add Account</Link>
-            </div>
-            <div className="col">
-                <input
-                    type="button"
-                    value={'50000'}
-                />
             </div>
             <table className="table table-striped table-sm">
                 <thead>

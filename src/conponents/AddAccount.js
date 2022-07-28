@@ -12,7 +12,6 @@ const AddAccount = ({ onAdd, categories }) => {
         uploads.append("accountNumber", data.accountNumber);
         uploads.append("pin", data.pin);
         onAdd(data)
-        console.log(data);
     }
     return (
         <div>
