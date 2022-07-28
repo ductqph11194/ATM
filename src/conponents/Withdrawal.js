@@ -4,36 +4,31 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Bill from "./Bill"
 import BtnWithdrawal from "./BtnWithdrawal";
-import { getUser, selectUser, getTextUpdate } from "../redux/reducer";
+import { getBalanceUser, selectBalance, getTextUpdate } from "../redux/reducer";
 
 function Withdrawal() {
     const [amount, setAmount] = useState(0);
     const [isFocus, isSetFocus] = useState(false);
-    const [primary, setPrimary] = useState('btn btn-primary');
     const [isRedirectBill, isSetRedirectBill] = useState(false);
-    const user = useSelector(selectUser);
+    const user = useSelector(selectBalance);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { setTitle } = useContext(TitleText);
     const textt = useSelector(getTextUpdate);
     const params = useParams();
-    const totalMoney = user?.balance;
-    const id = params.id;
-    const textheader = "Withdrawal " + textt
+    const totalMoney = user?.result?.balance;
 
     useEffect(() => {
         const id = params.id;
-        dispatch(getUser(id));
+        dispatch(getBalanceUser(id));
     }, []);
 
     useEffect(() => {
-        setTitle(textheader);
+        setTitle("Withdrawal")
     }, []);
 
     const handleAmounts = () => {
         isSetFocus(!isFocus);
-        console.log(amount);
-        console.log("â");
     };
 
     const handleSubmit = () => {
