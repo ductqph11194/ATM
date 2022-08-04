@@ -9,6 +9,8 @@ import { getBalanceUser, selectBalance, getTextUpdate } from "../redux/reducer";
 function Withdrawal() {
     const [amount, setAmount] = useState(0);
     const [isFocus, isSetFocus] = useState(false);
+    const [amountOther, setAmountOther] = useState(0);
+    const [isSelectAmount, isSetSelectAmount] = useState(false);
     const [isRedirectBill, isSetRedirectBill] = useState(false);
     const user = useSelector(selectBalance);
     const navigate = useNavigate();
@@ -31,6 +33,16 @@ function Withdrawal() {
         isSetFocus(!isFocus);
     };
 
+    const handeleOtherMoney = () => {
+        isSetSelectAmount(!isSelectAmount);
+        setAmount(0)
+    };
+
+    const handleOtherAmount = (e) => {
+        const value = e.target.value.replace(/\D/g, "");
+        setAmountOther(value);
+    };
+
     const handleSubmit = () => {
         if (amount === 0 || amount === "") {
             alert("Only withdraw the amount over 5 ");
@@ -44,73 +56,88 @@ function Withdrawal() {
     return (
         <>
             {isRedirectBill === false ? (
-                <div className="container text-center">
-                    <div className="row">
-                        <div class="col"></div>
-                        <div className="col">
-                            < BtnWithdrawal
-                                value={"5"}
-                                setAmount={setAmount}
-                                isFocus={isFocus}
-                                isSetFocus={isSetFocus}
-                                amount={amount}
-                                onClick={(e) => { handleAmounts() }}
-                            />
-                        </div>
 
-                        <div className="col">
-                            < BtnWithdrawal
-                                value={"10"}
-                                setAmount={setAmount}
-                                isFocus={isFocus}
-                                isSetFocus={isSetFocus}
-                                amount={amount}
-                                onClick={(e) => { handleAmounts() }}
+                <div className="container text-center">
+                    {isSelectAmount === false ? (
+                        <div>
+                            <div className="row">
+                                <div class="col"></div>
+                                <div className="col">
+                                    < BtnWithdrawal
+                                        value={"5"}
+                                        setAmount={setAmount}
+                                        isFocus={isFocus}
+                                        isSetFocus={isSetFocus}
+                                        amount={amount}
+                                        onClick={(e) => { handleAmounts() }}
+                                    />
+                                </div>
+
+                                <div className="col">
+                                    < BtnWithdrawal
+                                        value={"10"}
+                                        setAmount={setAmount}
+                                        isFocus={isFocus}
+                                        isSetFocus={isSetFocus}
+                                        amount={amount}
+                                        onClick={(e) => { handleAmounts() }}
+                                    />
+                                </div>
+                                <div class="col"></div>
+                            </div>
+                            <div className="row pt-3">
+                                <div class="col"></div>
+                                <div className="col">
+                                    < BtnWithdrawal
+                                        value={"20"}
+                                        setAmount={setAmount}
+                                        isFocus={isFocus}
+                                        isSetFocus={isSetFocus}
+                                        amount={amount}
+                                        onClick={(e) => { handleAmounts() }}
+                                    />
+                                </div>
+                                <div className="col">
+                                    < BtnWithdrawal
+                                        value={"50"}
+                                        setAmount={setAmount}
+                                        isFocus={isFocus}
+                                        isSetFocus={isSetFocus}
+                                        amount={amount}
+                                        onClick={(e) => { handleAmounts() }}
+                                    />
+                                </div>
+                                <div class="col"></div>
+                            </div>
+                            <div className="row pt-3">
+                                <div class="col"></div>
+                                <div className="col">
+                                    < BtnWithdrawal
+                                        value={"100"}
+                                        setAmount={setAmount}
+                                        isFocus={isFocus}
+                                        isSetFocus={isSetFocus}
+                                        amount={amount}
+                                        onClick={(e) => { handleAmounts() }}
+                                    />
+                                </div>
+                                <div className="col">
+                                    <input type="button" value={"Other"} style={{ width: '150px' }} onClick={() => handeleOtherMoney()} className="btn btn-primary" />
+                                </div>
+                                <div class="col"></div>
+                            </div>
+
+                        </div>
+                    ) : (
+                        <div className="btn_inputAmount ">
+                            <input
+                                type="input"
+                                className="btn_inputAmount_input"
+                                placeholder={"Amount of money ... "}
+                                onChange={(e) => { setAmount(e.target.value) }}
                             />
                         </div>
-                        <div class="col"></div>
-                    </div>
-                    <div className="row pt-3">
-                        <div class="col"></div>
-                        <div className="col">
-                            < BtnWithdrawal
-                                value={"20"}
-                                setAmount={setAmount}
-                                isFocus={isFocus}
-                                isSetFocus={isSetFocus}
-                                amount={amount}
-                                onClick={(e) => { handleAmounts() }}
-                            />
-                        </div>
-                        <div className="col">
-                            < BtnWithdrawal
-                                value={"50"}
-                                setAmount={setAmount}
-                                isFocus={isFocus}
-                                isSetFocus={isSetFocus}
-                                amount={amount}
-                                onClick={(e) => { handleAmounts() }}
-                            />
-                        </div>
-                        <div class="col"></div>
-                    </div>
-                    <div className="row pt-3">
-                        <div class="col"></div>
-                        <div className="col">
-                            < BtnWithdrawal
-                                value={"100"}
-                                setAmount={setAmount}
-                                isFocus={isFocus}
-                                isSetFocus={isSetFocus}
-                                amount={amount}
-                                onClick={(e) => { handleAmounts() }}
-                            />
-                        </div>
-                        <div className="col">
-                            <input type="button" value={"Other"} style={{ width: '150px' }} className="btn btn-primary" />
-                        </div>
-                        <div class="col"></div>
-                    </div>
+                    )}
                     <div className="row pt-3" style={{ paddingLeft: '470px' }} >
                         <button type="button" onClick={(e) => handleSubmit(e)} style={{ width: '350px', }} className="btn btn-primary">Comfirm</button>
                     </div>

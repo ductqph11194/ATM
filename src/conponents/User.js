@@ -14,9 +14,9 @@ const User = () => {
     const textt = useSelector(getTextUpdate);
 
     useEffect(() => {
-        setTitle(`Dashboar `);
+        setTitle(`Dashboard `);
     }, []);
-    console.log(textt);
+
     useEffect(() => {
         const id = params.id;
         dispatch(getUser(id));

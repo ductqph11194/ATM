@@ -21,6 +21,7 @@ function Bill({ amounts, user }) {
         );
         navigate(-1);
     };
+
     useEffect(() => {
         setTitle("Bill")
     }, []);

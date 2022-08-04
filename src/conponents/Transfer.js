@@ -1,62 +1,123 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { TitleText } from '../context/MainContext';
-import { getUser, selectBalance, getBalanceUser, createTransfer } from "../redux/reducer";
+import { getUsers, selectUser, selectBalance, getListUser, getBalanceUser, createTransfer } from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-
+import "../css/Transfer.css"
 
 const Transfer = () => {
     const [receiver, setReceiver] = useState("");
     const [amount, setAmount] = useState(0);
+    const [isInfo, isSetInfo] = useState(false);
+    const [content, setContent] = useState("");
     const user = useSelector(selectBalance)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();
+    const balanceUser = useSelector(selectBalance);
+    const userList = useSelector(getUsers);
     const { setTitle } = useContext(TitleText);
+    const bankuser = useSelector(selectUser);
+
     useEffect(() => {
         const id = params.id;
+        dispatch(getListUser());
+        setTitle("TRANSFER");
         dispatch(getBalanceUser(id));
     }, []);
-    useEffect(() => {
-        setTitle("TRANSFER");
-    }, []);
+
     const handleTransfer = () => {
         dispatch(
             createTransfer({
                 accountNumber: user?.result?.accountNumber,
                 amount: +amount,
-                accountNumberReceiver: receiver
+                accountNumberReceiver: receiver.accountNumber
             })
         );
         navigate(-1);
+        isSetInfo(!isInfo);
     }
+
+    const handlerTransfer = (user) => {
+        setReceiver(user.user);
+        isSetInfo(!isInfo);
+    };
+
+    const handleOtherAmount = (e) => {
+        const value = e.target.value.replace(/\D/g, "");
+        setAmount(value);
+        if (amount > balanceUser.Account.balance) {
+            alert("Số tiền của bạn không đủ.");
+            setAmount("");
+        }
+    };
+
     return (
         <>
-            <div className="input-group flex-nowrap">
-                <span className="input-group-text" id="addon-wrapping">Receiver Account:</span>
-                <input
-                    type="input"
-                    className="form-control"
-                    placeholder="Please enter Receiver Account"
-                    aria-label="Username"
-                    aria-describedby="addon-wrapping"
-                    onChange={e => { setReceiver(e.target.value) }}
-                />
-            </div>
-            <div className="input-group flex-nowrap pt-3">
-                <span className="input-group-text" id="addon-wrapping">Amount</span>
-                <input
-                    type="input"
-                    className="form-control"
-                    placeholder="Please enter Amount"
-                    aria-label="Username"
-                    aria-describedby="addon-wrapping"
-                    onChange={e => { setAmount(e.target.value) }}
-                />
-            </div>
-            <div class="pt-3">
-                <button type="button" class="btn btn-warning" onClick={handleTransfer}>Warning</button>
-            </div>
+
+            {isInfo === false ? (
+                <table className="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>NAME</th>
+                            <th>ACCONNT NUMBER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userList?.map((user, index) => (
+                            <>
+                                <tr key={index} className="selecter">
+                                    <td>
+                                        <nav
+                                            className="uppercase"
+                                            onClick={() => handlerTransfer({ user })}
+                                        >
+                                            {user?.name}{" "}
+                                        </nav>
+                                    </td>
+                                    <td>{user?.accountNumber}</td>
+                                </tr>
+                            </>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (<div className="transfer">
+                <h3>Transfer Information :</h3>
+                <div className="transfer_section">
+                    <h4>Source account : {user.result.accountNumber} </h4>
+                    <h5>Available balances : {balanceUser.result.balance} $ </h5>
+                </div>
+
+                <h3>Beneficiary information :</h3>
+                <div className="transfer_section">
+                    <h4>Beneficiary account : {receiver?.name}</h4>
+                    <h5>Amount received : {amount} $</h5>
+                </div>
+
+                <h3>Transaction information :</h3>
+                <div className="transfer_section">
+                    <div>
+                        <h4>Amount of money :</h4>{" "}
+                    </div>
+                    <div className="transition_btn_inputAmount ">
+                        <input
+                            type="text"
+                            className="transtion_btn_inputAmount_input"
+                            placeholder={"Amount of money ... "}
+                            value={amount}
+                            onChange={(e) => handleOtherAmount(e)}
+                        />
+                    </div>
+                </div>
+                <div className="transfer_section">
+                    <input
+                        type="button"
+                        value={"continue"}
+                        className="btn_effect transfer_continue"
+                        onClick={() => handleTransfer()}
+                    />
+                </div>
+            </div>)}
         </>
     )
 }

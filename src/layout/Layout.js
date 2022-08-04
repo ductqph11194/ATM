@@ -6,12 +6,12 @@ import BalanceInquiry from "../conponents/BalanceInquiry";
 import Transfer from "../conponents/Transfer";
 import User from "../conponents/User";
 import AddAccount from "../conponents/AddAccount";
-import App from "../App";
 import MainContextProvider from "../context/MainContext";
 import { axiosClient } from '../axiosClient';
 import Account from "../conponents/Account";
 import { useDispatch, useSelector } from "react-redux";
 import { getListUser, getUsers } from "../redux/reducer"
+import SignIn from "../conponents/SignIn";
 
 function Layout() {
     const dispatch = useDispatch();
@@ -20,7 +20,6 @@ function Layout() {
     useEffect(() => {
         dispatch(getListUser());
     }, []);
-    console.log(userList);
 
     const [listAcc, setListAcc] = useState([]);
 
@@ -36,7 +35,6 @@ function Layout() {
 
     }
 
-
     const addAccount = async (acc, data) => {
         try {
             const { data } = await AccApi.add(acc);
@@ -50,7 +48,6 @@ function Layout() {
         }
     }
 
-
     return (
         <div>
             <MainContextProvider>
@@ -63,6 +60,7 @@ function Layout() {
                     <Route path="/account/:id/balance-inquiry" element={<BalanceInquiry />} />
                     <Route path="/account/:id/withdrawal" element={<Withdrawal />} />
                     <Route path="/account/:id/transfer" element={<Transfer />} />
+                    <Route path="/signIn" element={<SignIn />} />
 
                     <Route path="/" element={<Navigate to="/account" />} />
                 </Routes>

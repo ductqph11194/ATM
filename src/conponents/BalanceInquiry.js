@@ -10,6 +10,7 @@ function BalanceInquiry() {
     const params = useParams();
     const dispatch = useDispatch();
     const user = useSelector(selectBalance);
+
     useEffect(() => {
         const id = params.id;
         dispatch(getBalanceUser(id));
