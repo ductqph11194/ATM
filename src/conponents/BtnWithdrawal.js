@@ -3,7 +3,6 @@ import React, { useState } from "react";
 function WithdrawBtn({ value, setAmount, isFocus, isSetFocus, amount }) {
     const handleAmount = () => {
         setAmount(value);
-        console.log(amount);
     };
 
     return (

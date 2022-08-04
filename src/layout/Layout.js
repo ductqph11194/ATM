@@ -5,7 +5,6 @@ import Withdrawal from "../conponents/Withdrawal";
 import BalanceInquiry from "../conponents/BalanceInquiry";
 import Transfer from "../conponents/Transfer";
 import User from "../conponents/User";
-import AddAccount from "../conponents/AddAccount";
 import MainContextProvider from "../context/MainContext";
 import { axiosClient } from '../axiosClient';
 import Account from "../conponents/Account";
@@ -53,16 +52,15 @@ function Layout() {
             <MainContextProvider>
                 <Header />
                 <Routes>
-                    <Route path="account" element={<Account users={userList} />} />
-                    <Route path="/account/:id" element={<User users={listAcc} />} />
-                    <Route path="/addAccount" element={<AddAccount onAdd={addAccount} />} />
-                    <Route path="/account/:id/withdrawal" element={<Withdrawal />} />
-                    <Route path="/account/:id/balance-inquiry" element={<BalanceInquiry />} />
-                    <Route path="/account/:id/withdrawal" element={<Withdrawal />} />
-                    <Route path="/account/:id/transfer" element={<Transfer />} />
+                    <Route path="accounts" element={<Account users={userList} />} />
+                    <Route path="/account" element={<User users={listAcc} />} />
+                    <Route path="/account/withdrawal" element={<Withdrawal />} />
+                    <Route path="/account/balance-inquiry" element={<BalanceInquiry />} />
+                    <Route path="/account/withdrawal" element={<Withdrawal />} />
+                    <Route path="/account/transfer" element={<Transfer />} />
                     <Route path="/signIn" element={<SignIn />} />
 
-                    <Route path="/" element={<Navigate to="/account" />} />
+                    <Route path="/" element={<Navigate to="/signIn" />} />
                 </Routes>
             </MainContextProvider>
         </div>

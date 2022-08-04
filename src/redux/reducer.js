@@ -53,22 +53,15 @@ export const userSlice = createSlice({
             .addCase(signIn.fulfilled, (state, action) => {
                 state.status = "idle";
                 state.account = action.payload;
-                console.log(state.account);
                 localStorage.setItem('token', state.account)
             })
 
     },
 });
 
-export const getUser = createAsyncThunk("account/getUser", async (id) => {
-    const res = await axios.get(`http://localhost:4000/api/account/${id}`);
-    return res.data;
-});
-
-export const getListUser = createAsyncThunk("account/getListUser", async () => {
+export const getUser = createAsyncThunk("account/getUser", async () => {
     const token = localStorage.getItem('token')
-    console.log(token);
-    const res = await axios.get(`http://localhost:4000/api/accounts`, {
+    const res = await axios.get(`http://localhost:4000/api/account`, {
         method: "POST",
         headers: {
             "auth-token": token
@@ -77,34 +70,70 @@ export const getListUser = createAsyncThunk("account/getListUser", async () => {
     return res.data;
 });
 
+export const getListUser = createAsyncThunk("account/getListUser", async () => {
+
+    const token = localStorage.getItem('token')
+    const res = await axios.get(`http://localhost:4000/api/accounts`, {
+        method: "POST",
+        headers: {
+            "auth-token": token
+        }
+    });
+    return res.data;
+
+});
+
 export const createWithdraw = createAsyncThunk("user/createWithdraw", async (newTransaction) => {
+    const token = localStorage.getItem('token')
     const res = await axios.post(
         `http://localhost:4000/api/withdraw`,
-        newTransaction
+        newTransaction, {
+        method: "POST",
+        headers: {
+            "auth-token": token
+        }
+    }
     );
-
     return res.data;
 }
 );
 
-export const signIn = createAsyncThunk("user/register", async (user) => {
+export const signIn = createAsyncThunk("user/sigIn", async (user) => {
     const res = await axios.post(`http://localhost:4000/login`, user)
+    return res.data;
+})
+
+
+export const register = createAsyncThunk("user/register", async (user) => {
+    const res = await axios.post(`http://localhost:4000/register`, user)
     return res.data;
 })
 
 export const getBalanceUser = createAsyncThunk(
     "user/getBalanceUser",
-    async (id) => {
+    async () => {
+        const token = localStorage.getItem('token')
         const res = await axios.get(
-            `http://localhost:4000/api/account/${id}/balance-inquiry`
+            `http://localhost:4000/api/account/balance-inquiry`, {
+            method: "POST",
+            headers: {
+                "auth-token": token
+            }
+        }
         );
         return res.data;
     }
 );
 
 export const createTransfer = createAsyncThunk("user/createTransfer", async (newTransaction) => {
+    const token = localStorage.getItem('token')
     const res = await axios.post(`http://localhost:4000/api/transfer`,
-        newTransaction)
+        newTransaction, {
+        method: "POST",
+        headers: {
+            "auth-token": token
+        }
+    })
     return res.data
 })
 
@@ -118,6 +147,6 @@ export const selectBalance = (state) => state.user.balance;
 
 export const getTextUpdate = (state) => state.user.header;
 
-export const getToke = (state) => state.user.account;
+export const getToken = (state) => state.user.account;
 
 export default userSlice.reducer;

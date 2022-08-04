@@ -18,8 +18,7 @@ const User = () => {
     }, []);
 
     useEffect(() => {
-        const id = params.id;
-        dispatch(getUser(id));
+        dispatch(getUser());
     }, []);
 
     return (

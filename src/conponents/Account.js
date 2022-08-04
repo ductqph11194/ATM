@@ -1,12 +1,19 @@
 import React, { useEffect, useContext } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TitleText } from '../context/MainContext';
 
 function Account({ users }) {
+
     const { setTitle } = useContext(TitleText);
+    const navigate = useNavigate();
+
     useEffect(() => {
         setTitle("LIST USERS");
     }, []);
+    const logout = () => {
+        localStorage.removeItem('token');
+        navigate('/signIn');
+    };
 
     return (
         <>
@@ -14,7 +21,7 @@ function Account({ users }) {
                 <h1>LIST ACCOUNT</h1>
             </div>
             <div>
-                <Link to="/addAccount" className="btn btn-primary">Add Account</Link>
+                <button onClick={() => logout()} className="btn btn-danger">LogOut</button>
             </div>
             <table className="table table-striped table-sm">
                 <thead>
@@ -34,7 +41,7 @@ function Account({ users }) {
                                 <td>{index + 1}</td>
                                 <td>
                                     <Link
-                                        to={`/account/${user._id}`}
+                                        to={`/account`}
                                         className="User"
                                     >
                                         {user.name}{" "}
