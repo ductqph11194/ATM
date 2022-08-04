@@ -4,9 +4,8 @@ import { useContext } from "react";
 
 
 export const userSlice = createSlice({
-
     name: "account",
-    initialState: { status: "", users: [], user: {}, header: { recentlyAction: "", balance: "" }, textStatus: "", withdraw: {}, transfer: {}, balance: {}, },
+    initialState: { status: "", users: [], user: {}, account: '', header: { recentlyAction: "", balance: "" }, textStatus: "", withdraw: {}, transfer: {}, balance: {}, },
     reducers: {
         setUsers: (state, action) => {
             state.users = action.payload;
@@ -45,10 +44,19 @@ export const userSlice = createSlice({
             })
             .addCase(createTransfer.fulfilled, (state, action) => {
                 state.status = "idle";
-                console.log(action.payload);
                 state.header.recentlyAction = `(bạn vừa chuyển ${action.payload.result.amount} $)`
                 state.transfer = action.payload;
             })
+            .addCase(signIn.pending, (state, action) => {
+                state.status = "Loading";
+            })
+            .addCase(signIn.fulfilled, (state, action) => {
+                state.status = "idle";
+                state.account = action.payload;
+                console.log(state.account);
+                localStorage.setItem('token', state.account)
+            })
+
     },
 });
 
@@ -58,7 +66,14 @@ export const getUser = createAsyncThunk("account/getUser", async (id) => {
 });
 
 export const getListUser = createAsyncThunk("account/getListUser", async () => {
-    const res = await axios.get(`http://localhost:4000/api/accounts`);
+    const token = localStorage.getItem('token')
+    console.log(token);
+    const res = await axios.get(`http://localhost:4000/api/accounts`, {
+        method: "POST",
+        headers: {
+            "auth-token": token
+        }
+    });
     return res.data;
 });
 
@@ -72,13 +87,17 @@ export const createWithdraw = createAsyncThunk("user/createWithdraw", async (new
 }
 );
 
+export const signIn = createAsyncThunk("user/register", async (user) => {
+    const res = await axios.post(`http://localhost:4000/login`, user)
+    return res.data;
+})
+
 export const getBalanceUser = createAsyncThunk(
     "user/getBalanceUser",
     async (id) => {
         const res = await axios.get(
             `http://localhost:4000/api/account/${id}/balance-inquiry`
         );
-
         return res.data;
     }
 );
@@ -98,5 +117,7 @@ export const updateBalance = (state) => state.withdraw;
 export const selectBalance = (state) => state.user.balance;
 
 export const getTextUpdate = (state) => state.user.header;
+
+export const getToke = (state) => state.user.account;
 
 export default userSlice.reducer;

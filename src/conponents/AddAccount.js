@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+
 const AddAccount = ({ onAdd, categories }) => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -13,6 +14,7 @@ const AddAccount = ({ onAdd, categories }) => {
         uploads.append("pin", data.pin);
         onAdd(data)
     }
+
     return (
         <div>
             <div className="d-flex justify-content-between items-center">
@@ -20,6 +22,7 @@ const AddAccount = ({ onAdd, categories }) => {
                     <button onClick={() => navigate(-1)} className="btn btn-primary">Quay lại</button>
                 </div>
             </div>
+
             <form onSubmit={handleSubmit(onHandleSubmit)}>
                 <div className="form-floating mb-3 mt-3">
                     <input type="text"

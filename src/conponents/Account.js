@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { Link } from "react-router-dom";
 import { TitleText } from '../context/MainContext';
+
 function Account({ users }) {
     const { setTitle } = useContext(TitleText);
     useEffect(() => {
