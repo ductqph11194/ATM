@@ -20,10 +20,9 @@ const Transfer = () => {
     const bankuser = useSelector(selectUser);
 
     useEffect(() => {
-        const id = params.id;
         dispatch(getListUser());
         setTitle("TRANSFER");
-        dispatch(getBalanceUser(id));
+        dispatch(getBalanceUser());
     }, []);
 
     const handleTransfer = () => {

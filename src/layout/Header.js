@@ -6,7 +6,6 @@ import { getTextUpdate } from "../redux/reducer";
 function Header() {
     const { title } = useContext(TitleText);
     const data = useSelector(getTextUpdate);
-    console.log(data);
     return (
         <div className="PageHeader" style={{ textAlign: 'center', paddingBottom: '20px' }}>
             <h3> ATM PROJECT - {title}</h3>

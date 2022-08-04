@@ -21,8 +21,7 @@ function Withdrawal() {
     const totalMoney = user?.result?.balance;
 
     useEffect(() => {
-        const id = params.id;
-        dispatch(getBalanceUser(id));
+        dispatch(getBalanceUser());
     }, []);
 
     useEffect(() => {
