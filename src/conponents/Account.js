@@ -12,7 +12,7 @@ function Account({ users }) {
     }, []);
     const logout = () => {
         localStorage.removeItem('token');
-        navigate('/signIn');
+        navigate('/auth/signin');
     };
 
     return (
@@ -41,7 +41,7 @@ function Account({ users }) {
                                 <td>{index + 1}</td>
                                 <td>
                                     <Link
-                                        to={`/account`}
+                                        to={`/admin/account`}
                                         className="User"
                                     >
                                         {user.name}{" "}
