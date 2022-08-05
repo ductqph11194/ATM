@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useContext } from "react";
 
 
 export const userSlice = createSlice({
@@ -52,7 +51,7 @@ export const userSlice = createSlice({
             })
             .addCase(signIn.fulfilled, (state, action) => {
                 state.status = "idle";
-                state.account = action.payload;
+                state.account = action.payload.token;
                 localStorage.setItem('token', state.account)
             })
 
@@ -147,6 +146,5 @@ export const selectBalance = (state) => state.user.balance;
 
 export const getTextUpdate = (state) => state.user.header;
 
-export const getToken = (state) => state.user.account;
 
 export default userSlice.reducer;

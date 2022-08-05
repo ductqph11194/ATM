@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { signIn, register } from '../redux/reducer'
 import { TitleText } from '../context/MainContext';
 import { useDispatch } from "react-redux";
@@ -11,12 +10,10 @@ const SignIn = () => {
     const [name, setName] = useState(0);
     const [authMode, setAuthMode] = useState(false)
     const [pass, setPass] = useState("");
-    const [aloalo, setAlo] = useState('')
-    const [erorr, setErorr] = useState('')
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { setTitle } = useContext(TitleText);
-
     const handleSignIn = async (e) => {
         e.preventDefault();
         const response = await dispatch(
@@ -27,9 +24,9 @@ const SignIn = () => {
                 })
         );
         const { payload } = response;
-        if (payload.code === 200 || 201) {
-            navigate('/accounts');
-
+        console.log(response);
+        if (payload.code === 200) {
+            navigate('/admin/accounts');
         } else {
             alert(payload.message);
         }
@@ -46,7 +43,8 @@ const SignIn = () => {
             })
         );
         const { payload } = response;
-        if (payload.code === 200 || 204) {
+        console.log(response);
+        if (payload.code === 200) {
             setAuthMode(!authMode)
 
         } else {
@@ -86,11 +84,11 @@ const SignIn = () => {
                                 />
                             </div>
                             <div className="form-group mt-3">
-                                <label>Password</label>
+                                <label>PIN</label>
                                 <input
                                     type="password"
                                     className="form-control mt-1"
-                                    placeholder="Enter password"
+                                    placeholder="Enter Pin"
                                     onChange={e => setPass(e.target.value)}
                                 />
                             </div>
@@ -132,17 +130,17 @@ const SignIn = () => {
                                 />
                             </div>
                             <div className="form-group mt-3">
-                                <label>Password</label>
+                                <label>PIN</label>
                                 <input
                                     type="password"
                                     className="form-control mt-1"
-                                    placeholder="Password"
+                                    placeholder="Pin"
                                     onChange={e => setPass(e.target.value)}
                                 />
                             </div>
                             <div className="d-grid gap-2 mt-3">
                                 <button type="submit" className="btn btn-primary" onClick={handleRegister}>
-                                    Submit
+                                    Register
                                 </button>
                             </div>
                         </div>

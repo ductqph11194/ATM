@@ -10,7 +10,6 @@ import { axiosClient } from '../axiosClient';
 import Account from "../conponents/Account";
 import { useDispatch, useSelector } from "react-redux";
 import { getListUser, getUsers } from "../redux/reducer"
-import SignIn from "../conponents/SignIn";
 
 function Layout() {
     const dispatch = useDispatch();
@@ -20,7 +19,7 @@ function Layout() {
         dispatch(getListUser());
     }, []);
 
-    const [listAcc, setListAcc] = useState([]);
+    const [listAcc] = useState([]);
 
     const AccApi = {
         getAll() {
@@ -34,33 +33,29 @@ function Layout() {
 
     }
 
-    const addAccount = async (acc, data) => {
-        try {
-            const { data } = await AccApi.add(acc);
-            setListAcc([
-                ...listAcc,
-                data
-            ]);
-            console.log(data);
-        } catch (error) {
-            console.log(error)
+    function RequireAuth({ children }) {
+
+        if (localStorage.getItem('token') === null) {
+            return <Navigate to="/auth/signin" />;
         }
+
+        return children;
     }
 
     return (
         <div>
             <MainContextProvider>
                 <Header />
-                <Routes>
-                    <Route path="accounts" element={<Account users={userList} />} />
-                    <Route path="/account" element={<User users={listAcc} />} />
-                    <Route path="/account/withdrawal" element={<Withdrawal />} />
-                    <Route path="/account/balance-inquiry" element={<BalanceInquiry />} />
-                    <Route path="/account/withdrawal" element={<Withdrawal />} />
-                    <Route path="/account/transfer" element={<Transfer />} />
-                    <Route path="/signIn" element={<SignIn />} />
+                <Routes >
 
-                    <Route path="/" element={<Navigate to="/signIn" />} />
+                    <Route path="accounts" element={<RequireAuth> <Account users={userList} index /></RequireAuth>} />
+                    <Route path="account" element={<RequireAuth><User users={listAcc} /></RequireAuth>} />
+                    <Route path="account/withdrawal" element={<RequireAuth><Withdrawal /></RequireAuth>} />
+                    <Route path="account/balance-inquiry" element={<RequireAuth><BalanceInquiry /></RequireAuth>} />
+                    <Route path="account/withdrawal" element={<RequireAuth><Withdrawal /></RequireAuth>} />
+                    <Route path="account/transfer" element={<RequireAuth><Transfer /></RequireAuth>} />
+
+
                 </Routes>
             </MainContextProvider>
         </div>
