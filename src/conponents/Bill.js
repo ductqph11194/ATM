@@ -32,14 +32,14 @@ function Bill({ amounts, user }) {
 
     return (
         <>
-            <div class="container" style={{ maxWidth: '400px' }}>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Name :{user?.result?.name}</li>
-                    <li class="list-group-item">Account Number :{user?.result?.accountNumber}</li>
-                    <li class="list-group-item">Amount remaining :{user?.result?.balance - amounts}</li>
-                    <li class="list-group-item">Amount withdrawal :{amounts}</li>
-                    <li class="list-group-item">Date :{date}</li>
-                    <li class="list-group-item">Time :{time}</li>
+            <div className="container" style={{ maxWidth: '400px' }}>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item">Name :{user?.result?.name}</li>
+                    <li className="list-group-item">Account Number :{user?.result?.accountNumber}</li>
+                    <li className="list-group-item">Amount remaining :{user?.result?.balance - amounts}</li>
+                    <li className="list-group-item">Amount withdrawal :{amounts}</li>
+                    <li className="list-group-item">Date :{date}</li>
+                    <li className="list-group-item">Time :{time}</li>
                 </ul>
                 <button onClick={(e) => handleUpdate(e)}>xong</button>
             </div>

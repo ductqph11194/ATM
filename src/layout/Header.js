@@ -10,7 +10,6 @@ function Header() {
         <div className="PageHeader" style={{ textAlign: 'center', paddingBottom: '20px' }}>
             <h3> ATM PROJECT - {title}</h3>
             <span>{data.recentlyAction}</span>
-
         </div>
     );
 }
