@@ -26,7 +26,7 @@ const SignIn = () => {
         const { payload } = response;
         console.log(response);
         if (payload.code === 200) {
-            navigate('/admin/accounts');
+            navigate('/admin/account');
         } else {
             alert(payload.message);
         }

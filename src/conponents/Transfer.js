@@ -45,26 +45,31 @@ const Transfer = () => {
     const handleOtherAmount = (e) => {
         const value = e.target.value.replace(/\D/g, "");
         setAmount(value);
-        if (amount > balanceUser.Account.balance) {
+        if (amount > balanceUser.result.balance) {
             alert("Số tiền của bạn không đủ.");
             setAmount("");
         }
     };
 
+    const back = () => {
+        isSetInfo(!isInfo);
+    }
+
     return (
         <>
 
             {isInfo === false ? (
-                <table className="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>ACCONNT NUMBER</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userList?.map((user, index) => (
-                            <>
+                <>
+                    <table className="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>ACCONNT NUMBER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {userList?.map((user, index) => (
+
                                 <tr key={index} className="selecter">
                                     <td>
                                         <nav
@@ -76,10 +81,15 @@ const Transfer = () => {
                                     </td>
                                     <td>{user?.accountNumber}</td>
                                 </tr>
-                            </>
-                        ))}
-                    </tbody>
-                </table>
+
+                            ))}
+                        </tbody>
+
+                    </table>
+                    <div className="mt-3" style={{ marginLeft: '750px' }}>
+                        <button onClick={() => navigate(-1)} className="btn btn-primary">Back</button>
+                    </div>
+                </>
             ) : (<div className="transfer">
                 <h3>Transfer Information :</h3>
                 <div className="transfer_section">
@@ -116,7 +126,11 @@ const Transfer = () => {
                         onClick={() => handleTransfer()}
                     />
                 </div>
+                <div className="mt-3" style={{ marginLeft: '750px' }}>
+                    <button onClick={() => back()} className="btn btn-primary">Back</button>
+                </div>
             </div>)}
+
         </>
     )
 }

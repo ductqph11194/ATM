@@ -1,11 +1,19 @@
 import React, { useEffect, useContext } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { TitleText } from '../context/MainContext';
+import { getUsers, getListUser } from "../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
 
-function Account({ users }) {
+function Account() {
 
     const { setTitle } = useContext(TitleText);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const users = useSelector(getUsers);
+
+    useEffect(() => {
+        dispatch(getListUser());
+    }, []);
 
     useEffect(() => {
         setTitle("LIST USERS");
@@ -36,23 +44,23 @@ function Account({ users }) {
                 </thead>
                 <tbody>
                     {users?.map((user, index) => (
-                        <>
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>
-                                    <Link
-                                        to={`/admin/account`}
-                                        className="User"
-                                    >
-                                        {user.name}{" "}
-                                    </Link>
-                                </td>
-                                <td>{user.phone}</td>
-                                <td>{user.balance}</td>
-                                <td>{user.accountNumber}</td>
-                                <td>{user.pin}</td>
-                            </tr>
-                        </>
+
+                        <tr key={index}>
+                            <td >{index + 1}</td>
+                            <td>
+                                <Link
+                                    to={`/admin/account`}
+                                    className="User"
+                                >
+                                    {user.name}{" "}
+                                </Link>
+                            </td>
+                            <td>{user.phone}</td>
+                            <td>{user.balance}</td>
+                            <td>{user.accountNumber}</td>
+                            <td>{user.pin}</td>
+                        </tr>
+
                     ))}
                 </tbody>
             </table>

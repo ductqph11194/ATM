@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { TitleText } from '../context/MainContext';
 import { useDispatch, useSelector } from "react-redux";
-import { getBalanceUser, selectBalance, getTextUpdate } from "../redux/reducer";
+import { getBalanceUser, selectBalance } from "../redux/reducer";
 import { useParams, useNavigate } from "react-router-dom";
 
 function BalanceInquiry() {

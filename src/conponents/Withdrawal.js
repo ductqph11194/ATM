@@ -1,23 +1,21 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { TitleText } from '../context/MainContext';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Bill from "./Bill"
 import BtnWithdrawal from "./BtnWithdrawal";
-import { getBalanceUser, selectBalance, getTextUpdate } from "../redux/reducer";
+import { getBalanceUser, selectBalance } from "../redux/reducer";
 
 function Withdrawal() {
     const [amount, setAmount] = useState(0);
     const [isFocus, isSetFocus] = useState(false);
-    const [amountOther, setAmountOther] = useState(0);
+
     const [isSelectAmount, isSetSelectAmount] = useState(false);
     const [isRedirectBill, isSetRedirectBill] = useState(false);
     const user = useSelector(selectBalance);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { setTitle } = useContext(TitleText);
-    const textt = useSelector(getTextUpdate);
-    const params = useParams();
     const totalMoney = user?.result?.balance;
 
     useEffect(() => {
@@ -37,10 +35,6 @@ function Withdrawal() {
         setAmount(0)
     };
 
-    const handleOtherAmount = (e) => {
-        const value = e.target.value.replace(/\D/g, "");
-        setAmountOther(value);
-    };
 
     const handleSubmit = () => {
         if (amount === 0 || amount === "") {
@@ -60,7 +54,7 @@ function Withdrawal() {
                     {isSelectAmount === false ? (
                         <div>
                             <div className="row">
-                                <div class="col"></div>
+                                <div className="col"></div>
                                 <div className="col">
                                     < BtnWithdrawal
                                         value={"5"}
@@ -82,10 +76,10 @@ function Withdrawal() {
                                         onClick={(e) => { handleAmounts() }}
                                     />
                                 </div>
-                                <div class="col"></div>
+                                <div className="col"></div>
                             </div>
                             <div className="row pt-3">
-                                <div class="col"></div>
+                                <div className="col"></div>
                                 <div className="col">
                                     < BtnWithdrawal
                                         value={"20"}
@@ -106,10 +100,10 @@ function Withdrawal() {
                                         onClick={(e) => { handleAmounts() }}
                                     />
                                 </div>
-                                <div class="col"></div>
+                                <div className="col"></div>
                             </div>
                             <div className="row pt-3">
-                                <div class="col"></div>
+                                <div className="col"></div>
                                 <div className="col">
                                     < BtnWithdrawal
                                         value={"100"}
@@ -123,7 +117,7 @@ function Withdrawal() {
                                 <div className="col">
                                     <input type="button" value={"Other"} style={{ width: '150px' }} onClick={() => handeleOtherMoney()} className="btn btn-primary" />
                                 </div>
-                                <div class="col"></div>
+                                <div className="col"></div>
                             </div>
 
                         </div>
