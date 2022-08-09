@@ -43,14 +43,13 @@ const SignIn = () => {
             })
         );
         const { payload } = response;
-        console.log(response);
+
         if (payload.code === 200) {
             setAuthMode(!authMode)
 
         } else {
             alert(payload.message);
         }
-        console.log(payload.message);
 
     };
     useEffect(() => {
