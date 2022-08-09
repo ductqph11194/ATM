@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { TitleText } from '../context/MainContext';
-import { axiosClient } from "../axiosClient";
 import { getUser, selectUser } from "../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const User = () => {
     const data = useSelector(selectUser);
     const dispatch = useDispatch();
-    const params = useParams();
     const { setTitle } = useContext(TitleText);
     const navigate = useNavigate();
 
@@ -40,7 +38,7 @@ const User = () => {
                     </div>
 
                     <div className="col">
-                        <button type="button" style={{ width: '150px' }} className="btn btn-primary">Transaction</button>
+                        <Link to={`list-transaction`} type="button" style={{ width: '150px' }} className="btn btn-primary">Transaction</Link>
                     </div>
                     <div className="col"></div>
                 </div>
@@ -50,7 +48,7 @@ const User = () => {
                         <Link to={`withdrawal`} type="button" style={{ width: '150px' }} className="btn btn-primary">Withdrawal</Link>
                     </div>
                     <div className="col">
-                        <button type="button" style={{ width: '150px' }} className="btn btn-primary">Change Pin</button>
+                        <Link to={`change-pin`} type="button" style={{ width: '150px' }} className="btn btn-primary">Change Pin</Link>
                     </div>
                     <div className="col"></div>
                 </div>
