@@ -127,6 +127,7 @@ export const signIn = createAsyncThunk("user/sigIn", async (user) => {
     const res = await axios.post(`http://localhost:4000/auth/login`, user)
     return res.data;
 })
+
 export const changePin = createAsyncThunk("user/changePin", async (pin) => {
     const token = localStorage.getItem('token')
     const res = await axios.put(`http://localhost:4000/api/change-pin`, pin, {
